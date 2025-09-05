@@ -1,13 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <style>
         body {
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
@@ -41,6 +38,16 @@
         .btn-custom:hover {
             background-color: #6a11cb;
         }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        span:hover{
+            text-decoration: underline;
+            color:green;
+         }
     </style>
 </head>
 <body>
@@ -48,8 +55,20 @@
 <div class="container">
     <div class="signup-container">
         <h3 class="text-center mb-4">Create Your Account</h3>
+
+        <!-- Error Message Block -->
+        <%
+            String error = request.getParameter("error");
+            if ("duplicate".equals(error)) {
+        %>
+            <div class="error-message">❌ Username already exists. Please choose another.</div>
+        <% } else if ("email".equals(error)) { %>
+            <div class="error-message">❌ Failed to send verification email. Please check your email address.</div>
+        <% } else if ("validation".equals(error)) { %>
+            <div class="error-message">❌ Please fill all fields correctly and make sure passwords match.</div>
+        <% } %>
+
         <form action="signup" method="post">
-            
             <!-- Full Name -->
             <div class="mb-3">
                 <label class="form-label">Full Name</label>
@@ -60,6 +79,12 @@
             <div class="mb-3">
                 <label class="form-label">Username</label>
                 <input type="text" name="username" class="form-control" placeholder="Choose a username" required>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
             </div>
 
             <!-- Password -->
@@ -102,11 +127,16 @@
 
             <button type="submit" class="btn btn-custom w-100">Sign Up</button>
         </form>
+
+        <!-- Styled Login Link -->
+        <div class="text-center mt-3">
+            <a href="login.jsp" class="text-decoration-none text-primary fw-bold">
+                Already have an account? <span>Log in</span>
+            </a>
+        </div>
     </div>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

@@ -8,7 +8,7 @@ import javax.servlet.http.*;
 
 @WebServlet("/admin")
 public class admin extends HttpServlet {
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
         try {

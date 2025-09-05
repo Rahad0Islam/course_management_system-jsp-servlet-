@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +9,7 @@
     <style>
         body {
             background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .login-container {
             max-width: 400px;
@@ -25,11 +25,39 @@
             font-weight: bold;
             color: #343a40;
         }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .signup-link a {
+            text-decoration: none;
+            color: #2575fc;
+            font-weight: bold;
+        }
+        .signup-link span:hover {
+            text-decoration: underline;
+            color:green;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
         <h2 class="form-title">Login</h2>
+
+        <!-- Optional error message -->
+        <%
+            String error = request.getParameter("error");
+            if ("invalid".equals(error)) {
+        %>
+            <div class="error-message">❌ Invalid username, password, or role. Please try again.</div>
+        <% } %>
+
         <form action="login" method="post">
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
@@ -56,9 +84,13 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Log In</button>
         </form>
+
+        <div class="signup-link ">
+            <a href="signup.jsp">Don’t have an account? <span>Sign up </span></a>
+        </div>
     </div>
 
-    <!-- Bootstrap JS (optional) -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

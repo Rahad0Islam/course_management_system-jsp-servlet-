@@ -23,6 +23,7 @@ public class login extends HttpServlet {
 	       
 	       HttpSession session=request.getSession();
 	       session.setAttribute("username", username);
+	       session.setAttribute("pass", pass);
 	       
 	       logindao dao= new logindao();
 	       try {
@@ -34,18 +35,19 @@ public class login extends HttpServlet {
 				    response.sendRedirect("student");
 			   }
 			   else if(role.equals("admin")) {
+				      System.out.println("admin");
 				    response.sendRedirect("admin");
 			   }
 			   else {
-				   response.sendRedirect("login.jsp");
+				   response.sendRedirect("login.jsp?error=invalid");
 			   }
 			   
 			}
 			else {
-				response.sendRedirect("login.jsp");
+				 response.sendRedirect("login.jsp?error=invalid");
 			}
 		} catch (ClassNotFoundException | SQLException | IOException e) {
-              
+			response.sendRedirect("login.jsp?error=invalid");
 			e.printStackTrace();
 		}
 	}

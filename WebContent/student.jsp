@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
+<%@ page import="com.rahad.dao.logindao"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,6 +59,18 @@
     </style>
 </head>
 <body>
+   <%
+     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
+      String username = (String) session.getAttribute("username");
+      String pass = (String) session.getAttribute("pass");
+      
+      logindao dao= new logindao();
+      if(!dao.check(username,pass,"student")){
+    	  response.sendRedirect("login.jsp");
+      }
+  %>
+
+   %>
     <div class="container">
         <div class="dashboard-card">
             <h2 class="text-center">Welcome, ${sessionScope.username}</h2>

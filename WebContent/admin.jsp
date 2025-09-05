@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
+<%@ page import="com.rahad.dao.logindao"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,6 +56,18 @@
     </style>
 </head>
 <body>
+
+  
+  <%
+      response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
+      String username = (String) session.getAttribute("username");
+      String pass = (String) session.getAttribute("pass");
+      
+      logindao dao= new logindao();
+      if(!dao.check(username,pass,"admin")){
+    	  response.sendRedirect("login.jsp");
+      }
+  %>
     <form action="logout" method="post">
         <button type="submit" class="logout-btn">Logout</button>
     </form>
@@ -65,7 +78,7 @@
         <!-- Add New Course -->
         <div class="dashboard-card">
             <h3>➕ Add New Course</h3>
-            <form action="admin" method="post">
+            <form action="admin" method="get">
                 <input type="hidden" name="action" value="addCourse">
                 <div class="mb-3">
                     <label class="form-label">Course Name</label>
@@ -82,7 +95,7 @@
         <!-- Assign Teacher to Course -->
         <div class="dashboard-card">
             <h3>👨‍🏫 Assign Teacher to Course</h3>
-            <form action="admin" method="post">
+            <form action="admin" method="get">
                 <input type="hidden" name="action" value="assignTeacher">
 
                 <div class="mb-3">
@@ -138,7 +151,7 @@
         <!-- Remove Course -->
         <div class="dashboard-card">
             <h3>🗑️ Remove Course</h3>
-            <form action="admin" method="post">
+            <form action="admin" method="get">
                 <input type="hidden" name="action" value="removeCourse">
                 <div class="mb-3">
                     <label class="form-label">Select Course</label>
